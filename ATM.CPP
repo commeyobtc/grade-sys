@@ -12,7 +12,7 @@ struct Account
     double balance;
 };
 
-// Reads a validated integer from the user (e.g. PIN, menu choice)
+
 int readInt(const string &label)
 {
     int value;
@@ -26,7 +26,7 @@ int readInt(const string &label)
     return value;
 }
 
-// Reads a validated double from the user (e.g. deposit/withdraw amount)
+
 double readAmount(const string &label)
 {
     double value;
