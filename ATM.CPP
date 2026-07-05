@@ -31,12 +31,19 @@ double readAmount(const string &label)
 {
     double value;
     cout << "Enter " << label << ": ";
-    while (!(cin >> value) || value < 0)
+   while (true)
+{
+    if (cin >> value)
     {
-        cout << "Invalid input. Please enter a positive numeric value for " << label << ": ";
+        break;
+    }
+    else
+    {
+        cout << "Invalid input. Please enter a numeric value for " << label << ": ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
+}
     return value;
 }
 
