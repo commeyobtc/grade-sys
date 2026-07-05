@@ -1,13 +1,3 @@
-/**
- * Student Score Calculator
- * ---------------------------------------------
- * Collects a student's assessment scores (Quiz, Assignment,
- * Mid-Semester, End-of-Semester) and computes:
- *   - Total score
- *   - Percentage
- *   - Remaining score (out of 100)
- *   - Average score per assessment
- */
 
 #include <iostream>
 #include <limits>
@@ -16,7 +6,6 @@
 
 using namespace std;
 
-// Struct to group related student data together
 struct StudentRecord
 {
     string name;
@@ -27,7 +16,6 @@ struct StudentRecord
     int endOfSemScore;
 };
 
-// Struct to hold computed results
 struct ScoreSummary
 {
     int totalScore;
@@ -36,21 +24,28 @@ struct ScoreSummary
     double averagePerAssessment;
 };
 
-// Prompts the user for a labeled integer score and validates the input
+// checking for valid input and reading the score
 int readScore(const string &label)
 {
     int score;
     cout << "Enter " << label << ": ";
-    while (!(cin >> score))
+
+    while (true)
     {
-        cout << "Invalid input. Please enter a numeric value for " << label << ": ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if (cin >> score)
+        {
+            break;
+        }
+        else
+        {
+            cout << "Invalid input. Please enter a numeric value for " << label << ": ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
     }
     return score;
 }
-
-// Gathers all student information from the user
+// taking student data from user input
 StudentRecord collectStudentData()
 {
     StudentRecord student;
@@ -69,7 +64,6 @@ StudentRecord collectStudentData()
     return student;
 }
 
-// Calculates total, percentage, remaining, and average scores
 ScoreSummary calculateSummary(const StudentRecord &student)
 {
     ScoreSummary summary;
@@ -77,14 +71,14 @@ ScoreSummary calculateSummary(const StudentRecord &student)
     summary.totalScore = student.quizScore + student.assignmentScore +
                          student.midSemScore + student.endOfSemScore;
 
-    summary.percentage = (summary.totalScore * 100.0) / 100.0;
+    summary.percentage = (summary.totalScore / 70.0);
     summary.remainingScore = 100 - summary.totalScore;
     summary.averagePerAssessment = summary.totalScore / 4.0;
 
     return summary;
 }
 
-// Displays the student's results in a readable format
+// Displays the student's report card
 void printReport(const StudentRecord &student, const ScoreSummary &summary)
 {
     cout << "\n---------------------------------\n";
@@ -101,20 +95,35 @@ void printReport(const StudentRecord &student, const ScoreSummary &summary)
 
 int main()
 {
-    vector<StudentRecord> students; // Temporary storage for all students entered
+    vector<StudentRecord> students;
 
     char addAnother = 'y';
-    while (addAnother == 'y' || addAnother == 'Y')
+    while (true)
     {
         StudentRecord student = collectStudentData();
         students.push_back(student);
 
         cout << "Add another student? (y/n): ";
         cin >> addAnother;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear newline before next getline
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (addAnother == 'y' || addAnother == 'Y')
+        {
+            // will run again if user typed y/Y
+        }
+        else if (addAnother == 'n' || addAnother == 'N')
+        {
+            break; // exit if user  type n/N
+        }
+        else
+        {
+            cout << "please enter valid value : \n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
     }
 
-    // Print a report for every student stored in the vector
+    //
     for (const StudentRecord &student : students)
     {
         ScoreSummary summary = calculateSummary(student);
