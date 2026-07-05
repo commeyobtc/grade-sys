@@ -118,7 +118,7 @@ int showMenu()
 
 int main()
 {
-    cout << "===== Welcome to Simple ATM =====\n";
+    cout << "===== Welcome to COMMEY ATM =====\n";
     Account account = createAccount();
 
     if (!login(account))
@@ -142,7 +142,7 @@ int main()
             withdraw(account);
             break;
         case 4:
-            cout << "Thank you for using Simple ATM. Goodbye!\n";
+            cout << "Thank you for using COMMEY ATM. Goodbye!\n";
             running = false;
             break;
         default:
